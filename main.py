@@ -10,6 +10,9 @@ import os
 import json
 
 app = FastAPI(title="Monishka Raddayagala's Physics LMS", version="4.0.0")
+@app.get("/")
+def home():
+    return FileResponse("index.html")
 
 app.add_middleware(
     CORSMiddleware,
