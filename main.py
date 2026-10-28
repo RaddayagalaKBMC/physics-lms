@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, sta
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import Dict, List
 import numpy as np
@@ -13,12 +12,12 @@ from pymongo import MongoClient
 
 app = FastAPI(title="Monishka Raddayagala's Physics LMS", version="5.0.0")
 
-# MongoDB Atlas Connection using Environment Variable
+# MongoDB Atlas Connection with connect=False to prevent build-time timeout
 MONGO_URL = os.environ.get("MONGO_URL")
 if not MONGO_URL:
     raise RuntimeError("MONGO_URL environment variable is not set!")
 
-client = MongoClient(MONGO_URL)
+client = MongoClient(MONGO_URL, connect=False)
 db = client["mcr_physics_lms"]
 
 # Collections
@@ -28,23 +27,6 @@ submissions_col = db["submissions"]
 slips_col = db["slips"]
 resources_col = db["resources"]
 mcq_exams_col = db["mcq_exams"]
-
-# Initialize default resources and exams if empty
-if resources_col.count_documents({}) == 0:
-    resources_col.insert_many([
-        {"title": "Model Paper 01 - Mechanics", "category": "Paper", "link": "https://example.com/paper1.pdf", "description": "යාන්ත්‍ර විද්‍යාව පුනරීක්ෂණ ප්‍රශ්න පත්‍රය"},
-        {"title": "Day 01 - Rotational Motion Recording", "category": "Video", "link": "https://youtube.com", "description": "භ්‍රමණ චලිතය සජීවී පන්ති වීඩියෝව"}
-    ])
-
-if mcq_exams_col.count_documents({}) == 0:
-    mcq_exams_col.insert_one({
-        "exam_id": "EXAM-01",
-        "title": "Mechanics Live MCQ Test",
-        "questions": [
-            {"q": "ප්‍රවේශයේ ממය (Dimension) කුමක්ද?", "options": ["LT^-1", "MLT^-2", "ML^2T", "L^2T^-1"], "answer": 0},
-            {"q": "ප්‍රවේග කාල ප්‍රස්ථාරයක යටින් ඇති වර්ගඵලයෙන් දැක්වෙන්නේ?", "options": ["ත්වරණය", "විස්ථාපනය", "බලය", "ශක්තිය"], "answer": 1}
-        ]
-    })
 
 @app.get("/")
 def home():
@@ -125,7 +107,6 @@ def register_student(student: StudentRegister):
     }
     students_col.insert_one(new_student)
     
-    # Remove password before returning
     new_student.pop("_id", None)
     new_student.pop("password", None)
     return {"status": "Success", "student": new_student}
@@ -281,7 +262,6 @@ def get_all_slips():
 
 @app.post("/admin/verify")
 def verify_admin(admin: AdminLogin):
-    # Secure backend admin password check
     if admin.password == "monishka2027":
         return {"status": "Authorized"}
     raise HTTPException(status_code=401, detail="වැරදි Admin Password එකක්!")
