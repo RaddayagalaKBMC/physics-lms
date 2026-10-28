@@ -5,5 +5,3 @@ numpy
 pydantic
 dnspython
 python-multipart
-passlib
-bcrypt
