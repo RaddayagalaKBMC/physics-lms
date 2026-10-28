@@ -13,6 +13,13 @@ app = FastAPI(title="Monishka Raddayagala's Physics LMS", version="4.0.0")
 @app.get("/")
 def home():
     return FileResponse("index.html")
+@app.get("/logo.jpeg")
+def get_logo():
+    return FileResponse("logo.jpeg")
+
+@app.get("/bg.PNG")
+def get_bg():
+    return FileResponse("bg.PNG")    
 
 app.add_middleware(
     CORSMiddleware,
