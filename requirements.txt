@@ -1,8 +1,9 @@
 fastapi
 uvicorn
+pymongo
 numpy
 pydantic
-python-multipart
-pymongo
 dnspython
 python-multipart
+passlib
+bcrypt
