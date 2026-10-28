@@ -10,12 +10,15 @@ import os
 import hashlib
 from pymongo import MongoClient
 
-app = FastAPI(title="Monishka Raddayagala's Physics LMS", version="5.0.0")
+app = FastAPI(title="Monishka Raddayagala's Physics Class LMS", version="5.0.0")
 
 # MongoDB Atlas Connection with connect=False to prevent build-time timeout
 MONGO_URL = os.environ.get("MONGO_URL")
 if not MONGO_URL:
     raise RuntimeError("MONGO_URL environment variable is not set!")
+
+# Secure Admin Password from Environment Variables (Fallback provided for local testing)
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "monishka2027")
 
 client = MongoClient(MONGO_URL, connect=False)
 db = client["mcr_physics_lms"]
@@ -262,6 +265,6 @@ def get_all_slips():
 
 @app.post("/admin/verify")
 def verify_admin(admin: AdminLogin):
-    if admin.password == "monishka2027":
+    if admin.password == ADMIN_PASSWORD:
         return {"status": "Authorized"}
     raise HTTPException(status_code=401, detail="වැරදි Admin Password එකක්!")
