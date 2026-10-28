@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="si" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monishka Raddayagala's Physics Class LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-950 dark:bg-slate-950 text-slate-100 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+
+    <!-- Hero Header with Big Background Logo & Welcome Text -->
+    <header class="relative bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border-b border-indigo-500/30 py-10 px-6 shadow-2xl overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <img src="logo.jpeg" alt="Watermark Logo" class="w-[500px] h-[500px] object-contain rounded-full">
+        </div>
+
+        <div class="relative max-w-7xl mx-auto flex flex-col items-center text-center z-10 space-y-3">
+            <img src="logo.jpeg" alt="MCR Logo" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-indigo-500/80 shadow-2xl object-cover bg-white mb-2">
+            
+            <span class="text-indigo-400 font-semibold tracking-wider text-xs uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
+                B.Sc. Computer Science & Engineering (UG) • University of Moratuwa
+            </span>
+            
+            <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-tight drop-shadow-md">
+                WELCOME to MONISHKA RADDAYAGALA'S PHYSICS CLASS
+            </h1>
+            
+            <p class="text-slate-300 text-sm font-medium">අපි ලියමු - 'A' අකුරින් අපේම කතාවක් </p>
+        </div>
+
+        <div class="absolute top-4 right-6 z-20 flex gap-2">
+            <button onclick="goHome()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-lg transition">🏠 Home</button>
+            <button onclick="toggleDarkMode()" class="bg-slate-800/80 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-700 shadow-lg backdrop-blur-md transition hover:scale-105">🌓 Mode</button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+
+        <!-- HOME DASHBOARD WITH BACKGROUND PHOTO -->
+        <div id="homeDashboard" class="space-y-6 relative rounded-3xl p-6 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none" style="background-image: url('bg.PNG');"></div>
+
+            <div class="relative z-10">
+                <div class="text-center py-6">
+                    <h2 class="text-2xl font-extrabold text-white">🎓 සිසු සහ ගුරු පාලක මණ්ඩලය (Dashboard)</h2>
+                    <p class="text-slate-400 text-sm mt-1">කරුණාකර අවශ්‍ය අංශය තෝරාගන්න</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- Card 1 -->
+                    <div onclick="switchTab('authTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">👤</div>
+                        <h3 class="text-xl font-bold text-white">Student Register & Login</h3>
+                        <p class="text-xs text-slate-400">අලුත් සිසුන් ලියාපදිංචි වීම සහ ගිණුමට පිවිසීම.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="switchTab('profileTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">🎓</div>
+                        <h3 class="text-xl font-bold text-white">My Profile & ID Card</h3>
+                        <p class="text-xs text-slate-400">ඩිජිටල් QR හැඳුනුම්පත සහ ලකුණු ප්‍රගති ප්‍රස්තාරය.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="switchTab('examTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">⏱️</div>
+                        <h3 class="text-xl font-bold text-white">Online MCQ Exam</h3>
+                        <p class="text-xs text-slate-400">පැය 2 ක Countdown Timer එකක් සහිත ඔන්ලයින් ප්‍රශ්න පත්‍ර.</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div onclick="switchTab('hallOfFameTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">🏆</div>
+                        <h3 class="text-xl font-bold text-white">Hall of Fame (Top 10)</h3>
+                        <p class="text-xs text-slate-400">ප්‍රශ්න පත්‍රවල ඉහළම ලකුණු ලබාගත් දක්ෂ සිසුන් 10 දෙනා.</p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div onclick="switchTab('resourcesTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">🎥</div>
+                        <h3 class="text-xl font-bold text-white">Videos & Papers Library</h3>
+                        <p class="text-xs text-slate-400">පන්ති වීඩියෝ, ආදර්ශ ප්‍රශ්න පත්‍ර සහ ටියුට් බාගත කිරීම.</p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div onclick="switchTab('feesTab')" class="bg-slate-900/80 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 backdrop-blur-md">
+                        <div class="text-4xl">💳</div>
+                        <h3 class="text-xl font-bold text-white">Fees & Slip Upload</h3>
+                        <p class="text-xs text-slate-400">බැංකු ගිණුම් විස්තර සහ පන්ති ගාස්තු ගෙවූ රිසිට්පත් යැවීම.</p>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div onclick="switchTab('adminTab')" class="bg-slate-900/80 hover:bg-rose-950/40 border border-slate-800 hover:border-rose-500/50 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1 text-center space-y-3 md:col-span-2 lg:col-span-3 max-w-md mx-auto w-full backdrop-blur-md">
+                        <div class="text-4xl">⚙️</div>
+                        <h3 class="text-xl font-bold text-white">Teacher Admin Panel</h3>
+                        <p class="text-xs text-slate-400">ලකුණු ඇතුළත් කිරීම, පැමිණීම සටහන් කිරීම සහ Slips පරීක්ෂා කිරීම.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: STUDENT REGISTER & LOGIN -->
+        <div id="authTab" class="tab-content hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                <h2 class="text-xl font-bold mb-4 text-emerald-400 border-b border-slate-800 pb-2">📝 Self-Registration Form (අලුත් සිසුන් ලියාපදිංචි වීම)</h2>
+                <form id="registerForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">සම්පූර්ණ නම (Full Name)</label>
+                        <input type="text" id="regName" placeholder="උදා: Kasun Perera" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">පාසල (School)</label>
+                        <input type="text" id="regSchool" placeholder="උදා: Ananda College" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">විභාග වර්ෂය</label>
+                            <select id="regBatch" class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                                <option value="2027">2027 A/L</option>
+                                <option value="2026">2026 A/L</option>
+                                <option value="2028">2028 A/L</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">මධ්‍යස්ථානය</label>
+                            <select id="regCenter" class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                                <option value="Sipzone - Ruwanwella">Sipzone - රුවන්වැල්ල</option>
+                                <option value="Navodya - Ruwanwella">Navodya - රුවන්වැල්ල</option>
+                                <option value="Sarasaviya - Gonagaldeniya">Sarasaviya - ගෝනගල්දෙණිය</option>
+                                <option value="Online">Online Class</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">පන්ති වර්ගය</label>
+                            <select id="regType" class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                                <option value="Revision + Paper">Revision + Paper</option>
+                                <option value="Revision Only">Revision Only</option>
+                                <option value="Paper Only">Full Paper Only</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">WhatsApp අංකය</label>
+                            <input type="text" id="regPhone" placeholder="077XXXXXXX" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">මුරපදය (Password)</label>
+                            <input type="password" id="regPass" placeholder="••••••••" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg transition">Register Now 🚀</button>
+                </form>
+
+                <div id="regSuccessBox" class="hidden mt-4 bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-4 text-center">
+                    <p class="text-emerald-300 font-semibold text-sm">🎉 ලියාපදිංචිය සාර්ථකයි! ඔබේ Student Index අංකය:</p>
+                    <p id="newGeneratedIndex" class="text-3xl font-extrabold text-white font-mono my-1">-</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl h-fit">
+                <h2 class="text-xl font-bold mb-4 text-indigo-400 border-b border-slate-800 pb-2">🔐 Student Login</h2>
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Index Number</label>
+                        <input type="text" id="loginIndex" placeholder="උදා: MR27-001" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono uppercase">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Password</label>
+                        <input type="password" id="loginPass" placeholder="••••••••" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-2.5 text-white">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg transition">Login to Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 2: STUDENT PROFILE & DIGITAL ID -->
+        <div id="profileTab" class="tab-content hidden space-y-6">
+            <div id="profileEmptyPrompt" class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-12 text-center text-slate-400">
+                කරුණාකර මුලින්ම <strong>Student Register & Login</strong> ටැබ් එකෙන් ඔබේ ගිණුමට Log වන්න.
+            </div>
+
+            <div id="profileDashboard" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-gradient-to-br from-indigo-950/80 via-slate-900/80 to-slate-950/80 backdrop-blur-2xl border-2 border-indigo-500/40 rounded-2xl p-6 shadow-2xl">
+                        <div class="flex justify-between items-start border-b border-indigo-500/30 pb-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <img src="logo.jpg" alt="Logo" class="w-10 h-10 rounded-full bg-white object-cover">
+                                <div>
+                                    <span class="text-[9px] uppercase tracking-widest text-indigo-400 font-bold block">MCR PHYSICS CLASS</span>
+                                    <h3 id="profName" class="text-lg font-extrabold text-white">-</h3>
+                                </div>
+                            </div>
+                            <span id="profBatch" class="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-lg">2027 A/L</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="space-y-1.5 text-xs text-slate-300">
+                                <p>Index No: <strong id="profIndex" class="text-emerald-400 font-mono text-base block">-</strong></p>
+                                <p>Center: <span id="profCenter" class="text-white block font-medium">-</span></p>
+                                <p>Class: <span id="profType" class="text-indigo-300 block font-medium">-</span></p>
+                                <p>Attendance: <strong id="profAttCount" class="text-amber-400">0 Days</strong></p>
+                                <p>Fee Status: <span id="profFeeStatus" class="font-bold text-rose-400">Not Verified</span></p>
+                            </div>
+                            <div class="bg-white p-2 rounded-xl shadow-md">
+                                <img id="profQr" src="" alt="QR Code" class="w-20 h-20">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                        <h3 class="text-lg font-bold text-white mb-3">📈 Paper-by-Paper Progress Graph (Line Graph)</h3>
+                        <div class="h-64">
+                            <canvas id="progressLineChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                        <h3 class="text-lg font-bold text-white mb-3">📋 Exam History & Results</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="text-slate-400 border-b border-slate-800">
+                                        <th class="py-2 px-3">Paper ID</th>
+                                        <th class="py-2 px-3">MCQ</th>
+                                        <th class="py-2 px-3">Essay</th>
+                                        <th class="py-2 px-3">Total</th>
+                                        <th class="py-2 px-3">Rank</th>
+                                        <th class="py-2 px-3">Z-Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentHistoryBody" class="divide-y divide-slate-800/60"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ONLINE LIVE MCQ EXAM TIMER -->
+        <div id="examTab" class="tab-content hidden max-w-3xl mx-auto bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h2 class="text-xl font-bold text-indigo-400">⏱️ Online Live MCQ Exam</h2>
+                <div id="timerDisplay" class="bg-rose-500/20 border border-rose-500/40 text-rose-300 px-4 py-1.5 rounded-xl font-mono font-bold text-lg">02:00:00</div>
+            </div>
+            <div id="examContainer" class="space-y-6">
+                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <p class="text-white font-semibold">1. ප්‍රවේශයේ ממය (Dimension) කුමක්ද?</p>
+                    <div class="space-y-2 pl-4 text-sm text-slate-300">
+                        <label class="block"><input type="radio" name="q1" value="0" class="mr-2"> LT^-1</label>
+                        <label class="block"><input type="radio" name="q1" value="1" class="mr-2"> MLT^-2</label>
+                        <label class="block"><input type="radio" name="q1" value="2" class="mr-2"> ML^2T</label>
+                    </div>
+                </div>
+                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <p class="text-white font-semibold">2. ප්‍රවේග කාල ප්‍රස්ථාරයක යටින් ඇති වර්ගඵලයෙන් දැක්වෙන්නේ?</p>
+                    <div class="space-y-2 pl-4 text-sm text-slate-300">
+                        <label class="block"><input type="radio" name="q2" value="0" class="mr-2"> ත්වරණය</label>
+                        <label class="block"><input type="radio" name="q2" value="1" class="mr-2"> විස්ථාපනය</label>
+                        <label class="block"><input type="radio" name="q2" value="2" class="mr-2"> බලය</label>
+                    </div>
+                </div>
+                <button onclick="submitOnlineExam()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition">Submit MCQ Exam</button>
+            </div>
+            <div id="examResultBox" class="hidden bg-slate-950/50 p-6 rounded-xl border border-slate-800 text-center space-y-2">
+                <h3 class="text-2xl font-bold text-emerald-400">Exam Submitted Successfully! 🎉</h3>
+                <p id="examScoreText" class="text-slate-300">Your Score: -</p>
+            </div>
+        </div>
+
+        <!-- TAB 4: HALL OF FAME (TOP 10 LEADERBOARD) -->
+        <div id="hallOfFameTab" class="tab-content hidden max-w-4xl mx-auto bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h2 class="text-xl font-bold text-amber-400">🏆 Top 10 Hall of Fame</h2>
+                <input type="text" id="hofPaperId" value="PAPER-01" placeholder="Paper ID" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-sm uppercase">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="text-slate-400 border-b border-slate-800">
+                            <th class="py-2 px-3">Medal / Rank</th>
+                            <th class="py-2 px-3">Index No</th>
+                            <th class="py-2 px-3">Student Name</th>
+                            <th class="py-2 px-3">Total Marks</th>
+                            <th class="py-2 px-3">Z-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hallOfFameBody" class="divide-y divide-slate-800/60"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 5: RESOURCES HUB -->
+        <div id="resourcesTab" class="tab-content hidden space-y-6">
+            <h2 class="text-xl font-bold text-indigo-400 border-b border-slate-800 pb-2">🎥 Class Videos & Papers Library</h2>
+            <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- TAB 6: FEES & SLIPS -->
+        <div id="feesTab" class="tab-content hidden max-w-3xl mx-auto space-y-6">
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
+                <h2 class="text-xl font-bold text-indigo-400 border-b border-slate-800 pb-2">💳 2027 පන්ති ගාස්තු සහ බැංකු ගිණුම් විස්තර</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800"><h4 class="text-xs text-slate-300">Revision Only</h4><span class="text-lg font-bold text-indigo-400">Rs. 3500/=</span></div>
+                    <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800"><h4 class="text-xs text-slate-300">Revision + Paper</h4><span class="text-lg font-bold text-indigo-400">Rs. 4800/=</span></div>
+                    <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800"><h4 class="text-xs text-slate-300">Full Paper Only</h4><span class="text-lg font-bold text-indigo-400">Rs. 2500/=</span></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <h4 class="font-bold text-emerald-400">Bank of Ceylon</h4>
+                        <p>Name: K.B.M.C.Raddayagala</p>
+                        <p>Acc No: <strong class="text-indigo-300 font-mono">90219051</strong> (Ruwanwella)</p>
+                    </div>
+                    <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <h4 class="font-bold text-emerald-400">Commercial Bank</h4>
+                        <p>Name: K.B.M.C.Raddayagala</p>
+                        <p>Acc No: <strong class="text-indigo-300 font-mono">8031312819</strong> (Ruwanwella)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
+                <h3 class="text-lg font-bold text-emerald-400 border-b border-slate-800 pb-2">📤 Upload Payment Slip</h3>
+                <form id="slipUploadForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input type="text" id="slipIndex" placeholder="Index No (MR27-001)" required class="bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white uppercase text-sm">
+                        <input type="text" id="slipName" placeholder="Student Name" required class="bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                        <input type="text" id="slipMonth" placeholder="Month (May 2026)" required class="bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                    </div>
+                    <input type="file" id="slipFile" accept="image/*,.pdf" required class="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition text-sm">Upload Slip</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 7: TEACHER ADMIN PANEL -->
+        <div id="adminTab" class="tab-content hidden max-w-5xl mx-auto space-y-6">
+            <div id="adminLockBox" class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 text-center max-w-md mx-auto space-y-4 shadow-2xl">
+                <h2 class="text-xl font-bold text-rose-400">🔒 Teacher Admin Lock</h2>
+                <p class="text-xs text-slate-400">ගුරුවරයාට පමණයි. Admin Password එක ඇතුළත් කරන්න.</p>
+                <input type="password" id="adminPasswordInput" placeholder="Admin Password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-center">
+                <button onclick="verifyAdminPassword()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 rounded-xl transition">Unlock Admin Panel</button>
+            </div>
+
+            <div id="adminDashboard" class="hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                        <h3 class="text-lg font-bold text-indigo-400 mb-3 border-b border-slate-800 pb-2">✍️ Paper Marks Entry</h3>
+                        <form id="paperForm" class="space-y-3 text-sm">
+                            <input type="text" id="subIndex" placeholder="Index (MR27-001)" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white uppercase">
+                            <input type="text" id="subName" placeholder="Student Name" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                            <input type="text" id="paperId" placeholder="Paper ID (PAPER-01)" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white uppercase">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" step="0.5" id="mcqMarks" placeholder="MCQ (/40)" required class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                                <input type="number" step="0.5" id="essayMarks" placeholder="Essay (/60)" required class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                            </div>
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl">Save Marks</button>
+                        </form>
+                    </div>
+
+                    <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
+                        <h3 class="text-lg font-bold text-emerald-400 mb-3 border-b border-slate-800 pb-2">📌 Mark Attendance</h3>
+                        <form id="attendanceForm" class="space-y-3 text-sm">
+                            <input type="text" id="attIndex" placeholder="Index (MR27-001)" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white uppercase">
+                            <input type="text" id="attName" placeholder="Student Name" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                            <input type="date" id="attDate" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl">Mark Present</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                    <h3 class="text-lg font-bold text-emerald-400 mb-3 border-b border-slate-800 pb-2">📤 Upload Class Video / Paper / Tute</h3>
+                    <form id="resourceUploadForm" class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+                        <input type="text" id="resTitle" placeholder="Title (උදා: Day 01 - Mechanics)" required class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                        <select id="resCategory" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                            <option value="Video">🎥 Class Video</option>
+                            <option value="Paper">📄 Model Paper (PDF)</option>
+                            <option value="Tute">📚 Revision Tute</option>
+                        </select>
+                        <input type="url" id="resLink" placeholder="YouTube / Drive URL" required class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl">Add Resource</button>
+                    </form>
+                </div>
+
+                <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-2xl">
+                    <h3 class="text-lg font-bold text-amber-400 mb-3">👀 Payment Slips & Student Directory</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-slate-400 border-b border-slate-800"><th class="py-2 px-3">Index</th><th class="py-2 px-3">Name</th><th class="py-2 px-3">Month</th><th class="py-2 px-3">Slip</th></tr>
+                            </thead>
+                            <tbody id="slipsTableBody" class="divide-y divide-slate-800/60"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const API = "http://127.0.0.1:8000";
+        let progressChartInstance = null;
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+            }
+        }
+
+        function goHome() {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('homeDashboard').classList.remove('hidden');
+        }
+
+        function switchTab(tabId) {
+            document.getElementById('homeDashboard').classList.add('hidden');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            if(tabId === 'resourcesTab') loadResources();
+            if(tabId === 'hallOfFameTab') loadHallOfFame();
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                full_name: document.getElementById("regName").value,
+                school: document.getElementById("regSchool").value,
+                batch_year: document.getElementById("regBatch").value,
+                center: document.getElementById("regCenter").value,
+                class_type: document.getElementById("regType").value,
+                phone: document.getElementById("regPhone").value,
+                password: document.getElementById("regPass").value
+            };
+            const res = await fetch(`${API}/students/register`, {
+                method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)
+            });
+            if(res.ok) {
+                const data = await res.json();
+                document.getElementById("newGeneratedIndex").textContent = data.student.student_index;
+                document.getElementById("regSuccessBox").classList.remove("hidden");
+                document.getElementById("loginIndex").value = data.student.student_index;
+                document.getElementById("registerForm").reset();
+            }
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                student_index: document.getElementById("loginIndex").value.trim(),
+                password: document.getElementById("loginPass").value
+            };
+            const res = await fetch(`${API}/students/login`, {
+                method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)
+            });
+            if(!res.ok) { alert("Index අංකය හෝ Password එක වැරදියි!"); return; }
+            const data = await res.json();
+            renderStudentProfile(data);
+            switchTab('profileTab');
+        });
+
+        function renderStudentProfile(data) {
+            const p = data.profile;
+            document.getElementById("profileEmptyPrompt").classList.add("hidden");
+            document.getElementById("profileDashboard").classList.remove("hidden");
+
+            document.getElementById("profName").textContent = p.full_name;
+            document.getElementById("profSchool").textContent = p.school;
+            document.getElementById("profBatch").textContent = `${p.batch_year} A/L`;
+            document.getElementById("profIndex").textContent = p.student_index;
+            document.getElementById("profCenter").textContent = p.center;
+            document.getElementById("profType").textContent = p.class_type;
+            document.getElementById("profAttCount").textContent = `${data.attendance_count} Days`;
+            
+            const feeEl = document.getElementById("profFeeStatus");
+            if(data.fee_paid) { feeEl.textContent = "Verified (Paid)"; feeEl.className = "font-bold text-emerald-400"; }
+            else { feeEl.textContent = "Not Verified"; feeEl.className = "font-bold text-rose-400"; }
+
+            document.getElementById("profQr").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(p.student_index)}`;
+
+            const history = data.exam_history;
+            const tbody = document.getElementById("studentHistoryBody");
+            tbody.innerHTML = "";
+
+            if(history.length > 0) {
+                history.forEach(h => {
+                    tbody.innerHTML += `
+                        <tr class="border-b border-slate-800/50">
+                            <td class="py-2.5 px-3 font-semibold text-indigo-300">${h.paper_id}</td>
+                            <td class="py-2.5 px-3">${h.mcq_marks}</td>
+                            <td class="py-2.5 px-3">${h.essay_marks}</td>
+                            <td class="py-2.5 px-3 font-bold text-emerald-400">${h.total_marks}%</td>
+                            <td class="py-2.5 px-3 font-bold text-amber-400">#${h.rank}</td>
+                            <td class="py-2.5 px-3">${h.z_score}</td>
+                        </tr>
+                    `;
+                });
+
+                const ctx = document.getElementById("progressLineChart").getContext("2d");
+                if(progressChartInstance) progressChartInstance.destroy();
+                progressChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: history.map(h => h.paper_id),
+                        datasets: [
+                            { label: 'Total Marks (%)', data: history.map(h => h.total_marks), borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.2)', borderWidth: 3, tension: 0.3, fill: true },
+                            { label: 'Class Average', data: history.map(h => h.class_average), borderColor: '#818cf8', borderDash: [5, 5], borderWidth: 2, tension: 0.3 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: 100 } } }
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-slate-500">තවමත් ප්‍රශ්න පත්‍ර ලකුණු නැත.</td></tr>`;
+            }
+        }
+
+        let timeLeft = 7200;
+        const timerInterval = setInterval(() => {
+            if(timeLeft <= 0) { clearInterval(timerInterval); return; }
+            timeLeft--;
+            const hrs = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
+            const secs = String(timeLeft % 60).padStart(2, '0');
+            document.getElementById("timerDisplay").textContent = `${hrs}:${mins}:${secs}`;
+        }, 1000);
+
+        function submitOnlineExam() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if(q1 && parseInt(q1.value) === 0) score += 50;
+            if(q2 && parseInt(q2.value) === 1) score += 50;
+            document.getElementById("examScoreText").textContent = `Your Score: ${score}%`;
+            document.getElementById("examResultBox").classList.remove("hidden");
+        }
+
+        async function loadHallOfFame() {
+            const paperId = document.getElementById("hofPaperId").value.trim() || "PAPER-01";
+            const res = await fetch(`${API}/paper/${paperId}/analytics`);
+            const tbody = document.getElementById("hallOfFameBody");
+            tbody.innerHTML = "";
+            if(!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-500">දත්ත හමු නොවීය.</td></tr>`; return; }
+            const data = await res.json();
+            data.top_10.forEach(item => {
+                let medal = `#${item.rank}`;
+                if(item.rank === 1) medal = "🥇 1st";
+                else if(item.rank === 2) medal = "🥈 2nd";
+                else if(item.rank === 3) medal = "🥉 3rd";
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-800/50">
+                        <td class="py-2.5 px-3 font-bold text-amber-400">${medal}</td>
+                        <td class="py-2.5 px-3 font-mono">${item.student_index}</td>
+                        <td class="py-2.5 px-3 text-white font-medium">${item.student_name}</td>
+                        <td class="py-2.5 px-3 font-bold text-emerald-400">${item.total_marks}%</td>
+                        <td class="py-2.5 px-3 text-indigo-300">${item.z_score}</td>
+                    </tr>
+                `;
+            });
+        }
+        document.getElementById("hofPaperId").addEventListener("input", loadHallOfFame);
+
+        function verifyAdminPassword() {
+            const pass = document.getElementById("adminPasswordInput").value;
+            if(pass === "monishka2027") {
+                document.getElementById("adminLockBox").classList.add("hidden");
+                document.getElementById("adminDashboard").classList.remove("hidden");
+                loadSlips();
+            } else {
+                alert("වැරදි Password එකක්!");
+            }
+        }
+
+        document.getElementById("paperForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                student_index: document.getElementById("subIndex").value.trim(),
+                student_name: document.getElementById("subName").value,
+                paper_id: document.getElementById("paperId").value.trim(),
+                mcq_marks: parseFloat(document.getElementById("mcqMarks").value),
+                essay_marks: parseFloat(document.getElementById("essayMarks").value),
+                unit_breakdown: { "Mechanics": 80, "Waves": 75 }
+            };
+            const res = await fetch(`${API}/paper/submit`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+            if(res.ok) alert("ලකුණු සාර්ථකව Save විය!");
+        });
+
+        document.getElementById("attendanceForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                student_index: document.getElementById("attIndex").value.trim(),
+                student_name: document.getElementById("attName").value,
+                class_date: document.getElementById("attDate").value,
+                status: "Present"
+            };
+            const res = await fetch(`${API}/attendance/mark`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+            if(res.ok) alert("පැමිණීම සටහන් විය!");
+        });
+
+        document.getElementById("resourceUploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                title: document.getElementById("resTitle").value,
+                category: document.getElementById("resCategory").value,
+                link: document.getElementById("resLink").value,
+                description: "Class resource uploaded by teacher."
+            };
+            const res = await fetch(`${API}/resources/add`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+            if(res.ok) { alert("Resource Uploaded Successfully!"); document.getElementById("resourceUploadForm").reset(); }
+        });
+
+        document.getElementById("slipUploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append("student_index", document.getElementById("slipIndex").value);
+            formData.append("student_name", document.getElementById("slipName").value);
+            formData.append("month", document.getElementById("slipMonth").value);
+            formData.append("file", document.getElementById("slipFile").files[0]);
+            const res = await fetch(`${API}/fees/upload-slip`, { method: "POST", body: formData });
+            if(res.ok) { alert("Slip Uploaded Successfully!"); document.getElementById("slipUploadForm").reset(); }
+        });
+
+        async function loadSlips() {
+            const res = await fetch(`${API}/fees/slips`);
+            const slips = await res.json();
+            const tbody = document.getElementById("slipsTableBody");
+            tbody.innerHTML = "";
+            slips.forEach(s => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="py-2 px-3 font-mono">${s.student_index}</td>
+                        <td class="py-2 px-3 text-white">${s.student_name}</td>
+                        <td class="py-2 px-3">${s.month}</td>
+                        <td class="py-2 px-3"><a href="${API}${s.file_url}" target="_blank" class="text-indigo-400 underline">View Slip 👁️</a></td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function loadResources() {
+            const res = await fetch(`${API}/resources/all`);
+            const data = await res.json();
+            const grid = document.getElementById("resourcesGrid");
+            grid.innerHTML = "";
+            data.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 font-semibold">${item.category}</span>
+                            <h3 class="text-lg font-bold text-white mt-2">${item.title}</h3>
+                            <p class="text-slate-400 text-sm mt-1">${item.description}</p>
+                        </div>
+                        <a href="${item.link}" target="_blank" class="mt-4 block text-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 rounded-xl transition text-sm">Open / Watch 🎬</a>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
