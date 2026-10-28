@@ -571,17 +571,30 @@
         }
         document.getElementById("hofPaperId").addEventListener("input", loadHallOfFame);
 
-        function verifyAdminPassword() {
+        async function verifyAdminPassword(){
             const pass = document.getElementById("adminPasswordInput").value;
-            if(pass === "monishka2027") {
-                document.getElementById("adminLockBox").classList.add("hidden");
-                document.getElementById("adminDashboard").classList.remove("hidden");
-                loadSlips();
-            } else {
-                alert("වැරදි Password එකක්!");
+            try {
+                const res = await fetch(`${API}/admin/verify`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password: pass })
+                });
+                if(res.ok) {
+                    document.getElementById("adminLockBox").classList.add("hidden");
+                    document.getElementById("adminDashboard").classList.remove("hidden");
+                    loadSlips();
+                } else {
+                    alert("වැරදි Password එකක්!");
+                }
+            } catch (err) {
+                alert("සර්වර් එක සමඟ සම්බන්ධ වීමේ දෝෂයක් සිදු විය.");
             }
+            
         }
+        
 
+
+        
         document.getElementById("paperForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const payload = {
