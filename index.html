@@ -200,6 +200,7 @@
                         <div class="flex items-center justify-between">
                             <div class="space-y-1.5 text-xs text-slate-300">
                                 <p>Index No: <strong id="profIndex" class="text-emerald-400 font-mono text-base block">-</strong></p>
+                                <p>School: <span id="profSchool" class="text-white block font-medium">-</span></p>
                                 <p>Center: <span id="profCenter" class="text-white block font-medium">-</span></p>
                                 <p>Class: <span id="profType" class="text-indigo-300 block font-medium">-</span></p>
                                 <p>Attendance: <strong id="profAttCount" class="text-amber-400">0 Days</strong></p>
@@ -574,7 +575,7 @@
         async function verifyAdminPassword(){
             const pass = document.getElementById("adminPasswordInput").value;
             try {
-                const res = await fetch(`${API}/admin/verify`, {
+                const res = await fetch('/admin/verify', {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ password: pass })
@@ -589,12 +590,8 @@
             } catch (err) {
                 alert("සර්වර් එක සමඟ සම්බන්ධ වීමේ දෝෂයක් සිදු විය.");
             }
-            
         }
-        
 
-
-        
         document.getElementById("paperForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const payload = {
